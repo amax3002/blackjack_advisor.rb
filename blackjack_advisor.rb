@@ -9,6 +9,8 @@ dealer_first_card = ""
 
 type_of_user_hand = ""
 
+table = {}
+
 
 ############################ defining methods
 
@@ -75,3 +77,41 @@ puts "Dealer card: #{dealer_first_card}"
 puts ''
 
 puts "User hand type: #{type_of_user_hand}"
+
+
+########################## big tables
+#
+#
+
+
+# table[name] = {
+#   "user_card_one" => Set.new,
+#   "emails" => Set.new
+# }
+
+
+
+  dealer_options = [2,3,4,5,6,7,8,9,10,1]
+  hard_user_options = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+
+  puts dealer_options ** hard_user_options
+
+#
+#
+# 5	H	H	H	H	H	H	H	H	H	H
+# 6	H	H	H	H	H	H	H	H	H	H
+# 7	H	H	H	H	H	H	H	H	H	H
+# 8	H	H	H	Dh	Dh	H	H	H	H	H
+# 9	Dh	Dh	Dh	Dh	Dh	H	H	H	H	H
+# 10	Dh	Dh	Dh	Dh	Dh	Dh	Dh	Dh	H	H
+# 11	Dh	Dh	Dh	Dh	Dh	Dh	Dh	Dh	Dh	Dh
+# 12	H	H	S	S	S	H	H	H	H	H
+# 13	S	S	S	S	S	H	H	H	H	H
+# 14	S	S	S	S	S	H	H	H	H	H
+# 15	S	S	S	S	S	H	H	H	H	H
+# 16	S	S	S	S	S	H	H	H	H	H
+# 17	S	S	S	S	S	S	S	S	S	S
+# 18	S	S	S	S	S	S	S	S	S	S
+# 19	S	S	S	S	S	S	S	S	S	S
+# 20	S	S	S	S	S	S	S	S	S	S
+# 21	S	S	S	S	S	S	S	S	S	S
