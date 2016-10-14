@@ -9,9 +9,6 @@ dealer_first_card = ""
 
 type_of_user_hand = ""
 
-table1 = {}
-table2 = {}
-
 
 ############################ defining methods
 
@@ -51,8 +48,22 @@ def hand_type(check_first_card, check_second_card)
 end
 
 
+def choose_table(type_chose, hard_pair, soft_pair, pair_pair)
+  case type_chose
+  when  "Hard"
+    return hard_pair
+  when  "Soft"
+    return soft_pair
+  when  "Pair"
+    return pair_pair
+  else
+    puts "ERROR, table type not selected"
+  end
+end
 
-
+# ___What I need to DO___
+# =>  1. Make Ace, King, Q, J numbers
+# =>  2. Fix Pair choices.
 
 
 ########################## code
@@ -68,7 +79,7 @@ dealer_first_card = user_hand_dealer(dealer_first_card)
 type_of_user_hand = hand_type(first_card, second_card)
 
 
-
+puts ''
 puts "Total user card value: #{total_card_value}"
 
 puts "1st card: #{first_card}"
@@ -79,117 +90,67 @@ puts ''
 
 puts "User hand type: #{type_of_user_hand}"
 
-
-
-
-
-
-
-  dealer_options = [2,3,4,5,6,7,8,9,10,1]
-  hard_user_options = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
-  type = ["Hard", "Soft", "Pair"]
-
 ###
-def repeatedly_ask_a_question(person, info_type1, info_type2, array1, array2)
-  array1.each do |element1|
-    person[info_type1] << element1
-  end
 
-  array2.each do |element2|
-    person[info_type2] << element2
-  end
-
-  return person
-end
-
-table1["Hard"] = {
-  "dealer" => Set.new,
-  "user" => Set.new
-}
-
-
-# table2["dealer"] = {
-#   "user" => Set.new
-# }
-
-table1["Hard"] = repeatedly_ask_a_question(table1["Hard"], "dealer", "user", dealer_options, hard_user_options)
-# table2["dealer"] = repeatedly_ask_a_question(table2["dealer"], "user", hard_user_options)
-
-puts table1
-puts ''
-# puts table2
 puts ''
 
 ###
 
-  #table = Set.new[dealer_options.zip(hard_user_options.map {|i| i.include?(',') ? (i.split /, /) : i})]
 
-# puts table
-#
-# => 2,   3,   4,   5,  6,7, 8,    9,   10,    1
 hard_type_solutions = {
-  5 => ["H", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
-  6 => ["H", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
-  7 => ["H", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
-  8 => ["H", "H", "H", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  9 => ["Dh" "Dh", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  10 => ["Dh" "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "H", "H"],
-  11 => ["Dh" "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh"],
-  12 => ["H" "H", "S", "S", "S", "H", "H", "H", "H", "H"],
-  13 => ["S" "S", "S", "S", "S", "H", "H", "H", "H", "H"],
-  14 => ["S" "S", "S", "S", "S", "H", "H", "H", "H", "H"],
-  15 => ["S" "S", "S", "S", "S", "H", "H", "H", "H", "H"],
-  16 => ["S" "S", "S", "S", "S", "H", "H", "H", "H", "H"],
-  17 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-  18 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-  19 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-  20 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-  21 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"]
+  5 => ["Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  6 => ["Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  7 => ["Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  8 => ["Hit", "Hit", "Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  9 => ["Double if possible, otherwise Hit" "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  10 => ["Double if possible, otherwise Hit" "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit"],
+  11 => ["Double if possible, otherwise Hit" "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit"],
+  12 => ["Hit" "Hit", "Stand", "Stand", "Stand", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  13 => ["Stand" "Stand", "Stand", "Stand", "Stand", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  14 => ["Stand" "Stand", "Stand", "Stand", "Stand", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  15 => ["Stand" "Stand", "Stand", "Stand", "Stand", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  16 => ["Stand" "Stand", "Stand", "Stand", "Stand", "Hit", "Hit", "Hit", "Hit", "Hit"],
+  17 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],
+  18 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],
+  19 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],
+  20 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],
+  21 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"]
 }
 
 soft_type_solutions = {
-  13 => ["H", "H", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  14 => ["H", "H", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  15 => ["H", "H", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  16 => ["H", "H", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  17 => ["Dh", "Dh", "Dh", "Dh", "Dh", "H", "H", "H", "H", "H"],
-  18 => ["S", "Ds", "Ds", "Ds", "Ds", "S", "S", "H", "H", "S"],
-  19 => ["S", "S", "S", "S", "Ds", "S", "S", "S", "S", "S"],
-  20 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-  21 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"]
+  13 => ["Hit", "Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],    # 0
+  14 => ["Hit", "Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],    # 1
+  15 => ["Hit", "Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],    # 2
+  16 => ["Hit", "Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],    # 3
+  17 => ["Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit", "Hit", "Hit", "Hit"],  # 4
+  18 => ["Stand", "Double if possible, otherwise Stand", "Double if possible, otherwise Stand", "Double if possible, otherwise Stand", "Double if possible, otherwise Stand", "Stand", "Stand", "Hit", "Hit", "Stand"],   # 5
+  19 => ["Stand", "Stand", "Stand", "Stand", "Double if possible, otherwise Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],      # 6
+  20 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],       # 7
+  21 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"]        # 8
 }
 
 pair_type_solutions = {
-4 => ["P", "P", "P", "P", "P", "P", "H", "H", "H", "H"],
-6 => ["P", "P", "P", "P", "P", "P", "P", "H", "H", "H"],
-8 => ["H", "H", "P", "P", "P", "H", "H", "H", "H", "H"],
-10 => ["Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "Dh", "H", "H"],
-12 => ["P", "P", "P", "P", "P", "P", "H", "H", "H", "H"],
-14 => ["P", "P", "P", "P", "P", "P", "P", "H", "S", "H"],
-16 => ["P", "P", "P", "P", "P", "P", "P", "P", "P", "P"],
-18 => ["P", "P", "P", "P", "P", "S", "P", "P", "S", "S"],
-20 => ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-2 => ["P", "P", "P", "P", "P", "P", "P", "P", "P", "P"]
+4 => ["Split", "Split", "Split", "Split", "Split", "Split", "Hit", "Hit", "Hit", "Hit"],          # 0
+6 => ["Split", "Split", "Split", "Split", "Split", "Split", "Split", "Hit", "Hit", "Hit"],          # 1
+8 => ["Hit", "Hit", "Split", "Split", "Split", "Hit", "Hit", "Hit", "Hit", "Hit"],          # 2
+10 => ["Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Double if possible, otherwise Hit", "Hit", "Hit"], # 3
+12 => ["Split", "Split", "Split", "Split", "Split", "Split", "Hit", "Hit", "Hit", "Hit"],         # 4
+14 => ["Split", "Split", "Split", "Split", "Split", "Split", "Split", "Hit", "Stand", "Hit"],         # 5
+16 => ["Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split"],         # 6
+18 => ["Split", "Split", "Split", "Split", "Split", "Stand", "Split", "Split", "Stand", "Stand"],         # 7
+20 => ["Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand", "Stand"],         # 8
+2 => ["Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split", "Split"]           # 9
 }
 
-def choose_table(type_chose)
-  if type_chose == "Hard"
-    hard_type_solutions
-  elsif type_chose == "Soft"
-    soft_type_solutions
-  elsif type_chose == "Pair"
-    pair_type_solutions
-  else
-    puts "ERROR, table type not selected"
-  end
-end
+######################
+
+
+chosen_table = choose_table(type_of_user_hand, hard_type_solutions, soft_type_solutions, pair_type_solutions)
+
+keys = chosen_table.keys
+to_find_index = chosen_table[keys[total_card_value-5]]
 
 
 
-
-keys = hard_type_solutions.keys
-to_find_index = hard_type_solutions[keys[total_card_value-5]]
-
+puts "You should: #{to_find_index[dealer_first_card-2]}"
 puts ''
-
-puts to_find_index[dealer_first_card-2]
